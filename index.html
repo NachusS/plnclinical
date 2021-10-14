@@ -270,56 +270,63 @@
 					</section>
 					<section>
 
-						<pre><code data-trim style="text-align: center;">To identify the semantic meaning of a word, 
-							it depend of the words around it.</code></pre>
+						<pre><code data-trim style="text-align: center;">El significado semántico de una palabra, 
+depende de las palabras que las rodea.</code></pre>
 
-						<p><strong>Word Embedding</strong> are based on the idea that contextual information alone 
-							constitutes a viable representation of linguistic terms</p>
-						<p>In <em>computational linguistic</em>, we use the term <strong>distributional semantic model</strong>, 
-							<em>linguistic items with similar distributions have similar meanings.</em> </p>
+						<p><strong>Word Embedding</strong> está basado en la idea de que la información contextual 
+							por sí sola constituye una representación viable de términos lingüísticos</p>
+						<p>In <em>en lingüistica computacional</em>, se usa el término de <strong>modelo de distribución semántica</strong>, 
+							<em>las entidades lingüisticas con una distribución similar tiene mismo significado.</em> </p>
 					</section>
 					<section>
 						<h3>Evolution:</h3>
 						<ul>
-							<li>In 2003 <strong>Bengio et al.</strong> proposed a Neural language Model which learned distributed representations for words</li>
-							<li class="fragment fade-up"><strong>Collobert and Westorn</strong>(2008) was the firts work to show the utility of pre-trained word embeddings</li>
-							<li class="fragment fade-up">In 2013 <strong>Mikolov et al.</strong> proposed <em>Word2Vec</em>, with two approach, 
-								<em>continous bag-of-word</em> and <em>skip-gram</em>, to construct high quality distributed vector representations</li>
+							<li>In 2003 <strong>Bengio et al.</strong> propuso un modelo de lenguaje neuronal que aprendía de la depresentación en la distribución de palabras.</li>
+							<li class="fragment fade-up"><strong>Collobert and Westorn</strong>(2008) fue el primer trabajo que mostró la utilizada de los moddelos pre-entrenados de "word embeddings"</li>
+							<li class="fragment fade-up">In 2013 <strong>Mikolov et al.</strong> propuso <em>Word2Vec</em>, con dos enfoques, 
+								<em>continous bag-of-word</em> and <em>skip-gram</em>, para construir una representación de distribución de vectores de gran calidad.</li>
 						</ul>
 					</section>
 					<section>
 						<h1>what is Word2Vec? </h1>
 					</section>
 					<section>
-						<strong><em>Word2Vec</em></strong> is a shallow neural networks with one hidden layer, to produce word embedding
+						<strong><em>Word2Vec</em></strong> es una red neuronal superficial con una sola capa oculta, donde se generan las palabras embebidas.
 						<img src="images/W2V-Architecture.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>	
 
 						<small>				
 							<ol>
-								<li>Input is a <strong>One hot</strong> vector of all words from text</li>
-								<li>One hide layer, with <strong>size</strong> of the word vector </li>
-								<li>A output layer, using a <strong>SoftMax</strong> classifier</li>
+								<li>La entrada es<strong>un vector "One hot"</strong> con todas las palabras del texto</li>
+								<li>una capa oculta, con <strong>size</strong> el tamaño del vector de cada palabra. </li>
+								<li>Una capa de salida, utilizada como  <strong>SoftMax</strong> clasificador.</li>
 							</ol>
 						</small>
 	
 					</section>
 					<section>
-						<p>Word2vec is two approach– CBOW(Continuous bag of words) and Skip-gram model.</p>
-						<p><small>Learn weights which act as word vector representations, with a <strong>size window</strong>, about the word context</small></p>
+						<p>Word2vec tiene dos enfoques CBOW(Continuous bag of words) y  Skip-gram model.</p>
+						<p><small>Aprende los pesos que actuan en cada representación del vector con un <strong>tamaño de ventana</strong>, sobre el contexto de cada palabra.</small></p>
 						<img src="images/CBOW-SkipGram.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img>
 						<p style="font-size: 20px">The training method of word2vec is backpropagation with stochastic gradient descent.</p>
 						<img src="images/CBOW-ObjectiveFunc.png" style="float: left; border: 0; padding: 0px; width: 40%; height: 40%"> </img>
 						<img src="images/SkipGram-ObjectiveFunc.png" style="float: right;border: 0; padding: 0px; width: 40%; height: 40%"> </img>
 					</section>
 					<section>
-						<p><strong>Word2Vecs'trick:</strong></p>
+						<p><strong>El truco de Word2Vec es:</strong></p>
 
-						<p>There is no activation function on the hidden layer neurons, and the output neurons use softmax clasification 
-							method to build a probability distribution.</p>
+						<p>No tiene una función de activaciń en la capa oculta de las neuronas, utiliza como clasificador en la salida Softmax, 
+							para la generación de la distribución de probabilidad.</p>
 						
-						<p>Really, the goal is just to learn the weights of the hidden layer. 
-								It'll be the “word vectors”.</p>
-						<blockquote>The hidden layer, represent the vector of the word in the space model</blockquote>
+						<p>Realmente, la meta es aprender los pesos de la capa oculta, ya que esta será los vectores de cada palabra.</p>
+						<blockquote>La capa oculta representa el vector de cada palabra dentro del espacio vectorial generado.</blockquote>
+					</section>
+					<section>
+						<h2>Caso de uso Snomed2Vec</h2>
+
+						<p>Aplicación de "Word Embeddings", adaptando Word2Vec a Snomed-CT.</p>
+						<p> Paper presentado en el Congreso internacional CBMS2019</P>
+						<p style="font-size: 30px">Acceso a la presntación: <a href="https://nachuss.github.io/cbms2019/#/">Presntación del Articulo Snomed2Vec. Congreso CMBS2019 - Cordoba</a></p>
+				
 					</section>
 				</section>
 				
