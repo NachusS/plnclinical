@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Snomed2Vec CBMS2019 Presentation</title>
+
+		<meta name="description" content="Snomed2Vec representation of Snomed CT terms with Word2Vec">
+		<meta name="author" content="Ignacio Martinez Soriano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme"> 
+	
+		<!-- <link rel="stylesheet" href="css/main.css"> 
+			 <link rel="stylesheet" href="css/theme/league.css" id="theme"> -->
+		
+		
+		<!-- For syntax highlighting  -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+		
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+			
+			<section data-background-transition="slide" data-background="images/fondo01-1920x650.jpg" style="background: rgba(0,129,195,.9); color: white" >
+				<h4 style="color: rgba(255, 225, 255, .9)">
+					CBMS 2019 IEEE International Symposium on Computer-Based Medical Systems<br>
+				</h4>
+				<h3 style="color: rgba(255, 225, 255, .9)">
+					<code>Snomed2Vec</code>: representation of SNOMED-CT terms with Word2Vec
+				</h3>
+				
+				<p>Ignacio Martinez Soriano</p>
+				
+				<h4 style="color: rgba(255, 225, 255, .9)">
+					(05-07)-Jun-2019 (Cordoba)
+					<img src="images/QR-Snomed2Vec.png" style="float: right; border: 0; padding: 0px; width: 20%; height: 20%"></img>
+
+				</h4>
+
+				<small><p>Medlab MediaGroup S.L.<br>
+						Hospital University "Rafael Mendez"<br>
+						University of Granada <br>
+						University of Murcia 
+				</p></small>
+
+			</section>
+				<section>
+					<h1>Snomed2Vec</h1>
+					<ul>
+						<li>Introduction</li>
+						<li>Word Embeddings</li>
+						<li>Snomed-CT</li>
+						<li>Snomed2Vec Approach</li>
+						<li>Final Snomed2Vec Model</li>
+						<li>Use Cases</li>
+						<li>Evaluation and Tips</li>
+						<li>Conclusion and Outlook</li>
+					</ul>
+				</section>
+				<section>
+					<section data-transition="zoom" data-background="images/cbms_fondo00.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">1. Introduction:</h2>
+					</section>												
+
+					<section>
+						<h2>Introduction:</h2>
+						<p>Hospital Information Systems (H.I.S) use Electronic Health Record to store heterogeneous data from the patients.</p>
+						<p>The majority of the (E.H.R.) has too much free text in the corpus of the documents, 
+							it's necesary normalized the text, to identify the clinical concept inside it, and we need to map 
+							this text with a Standard Clinical Terninology Code. </p>
+
+						<aside class="notes">
+							<p>Hospital Information Systems (H.I.S) use Electronic Health Record, to store heterogeneous data from the
+								patients.</p>
+							<p>One important goal in this kind of systems is that the information must be, 
+								normalized and codify with a clinical terminology to represent exactly the healthcare meaning.</p> 
+							<p>Usually this process need human experts to identify and map the correct
+								concept, this is a slow and tedious task. One of the most widespread
+								clinical terminologies with more projection is Snomed-CT. </p>
+								This is an ontology multilingual clinical terminology that represent the clinical concepts with a unique code. 
+								We introduce in this paper Snomed2Vec, new approach of semantic search tool to find the most similar 
+								oncepts using Snomed-CT.
+								</p>
+						</aside>
+					</section>				
+					<section>
+						<h3>Mapping Clinical Concept:</h3>
+						<small><p>To identify the diagnosis and procedure, from the free text, we need a Clinical Terminology (ICD-10-MC,Snomed-CT..)</p></small>
+						<img src="images/codification.png" style="border: 0; padding: 0px; width: 70%; height: 70%"> </img>
+						<p>This process is heavy and need an expert.</p>
+
+					</section>
+					<section>
+						<h2>Spanish NER Tool approach:</h2>
+						<p>We propossed a tool to help the clinicians, to search in Snomed-CT and find the correct Medical concept Code.</p>
+						<p><strong><em>Snomed2Vec</em></strong>, is an ontology based named entity recognition tool using word embedding, that
+							suggest what is the most similar concept of Snomed-CT, that appear in a text.</p>
+						<p><strong>Snomed2Vec</strong>, from a query text, It suggest what is
+								the most similar concepts from Snomed-CT grouping by its top level hierarchy.</p>
+					</section>
+					<section>
+						<h3>Background and Related Work:</h3>
+						<p>Different approach of Ontology-Based Names Entity recognition.</p>
+						<ul>
+							<li>Ontology Matching.</li>
+							<small><p>Try to solve a problem of semantic heterogeneity</p></small>
+							<li>Named Based Techniques.</li>
+							<small><p>Try to identify the most similar string in a text search</p></small>
+							<li>Word Embedding Ontology Matching.</li>
+							<small><p>Represent entities in ontologies with word embedding</p></small>
+						</ul>
+						<p></p>
+					</section>
+				</section>
+				
+				<section>
+					<section data-transition="zoom"; data-background="images/cbms_fondo01.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">2. Word embedding:</h2>
+					</section>
+					<section>
+						<h2>Initial Idea: </h2>
+						<img src="images/DonQuijote.jpg" style="float: left; border: 0; padding: 0px; width: 40%; height: 40%"></img>
+						In Spanish there is a proverb:
+						<blockquote class="fragment fade-up" cite="https://cvc.cervantes.es/lengua/refranero/ficha.aspx?Par=58521&Lng=0">
+							&ldquo;Dime con quien andas y te diré quien eres&rdquo;
+						</blockquote>
+						<small>[El Quijote II, 10 y 23]</small>
+						<blockquote class="fragment fade-up" cite="https://cvc.cervantes.es/lengua/refranero/ficha.aspx?Par=58521&Lng=0">
+							&ldquo;Tell me who you are your frinds and I'll tell you, who you are&rdquo;
+						</blockquote>
+					</section>
+					<section>
+
+						<pre><code data-trim style="text-align: center;">To identify the semantic meaning of a word, 
+it depend of the words around it.</code></pre>
+
+						<p><strong>Word Embedding</strong> are based on the idea that contextual information alone 
+							constitutes a viable representation of linguistic terms</p>
+						<p>In <em>computational linguistic</em>, we use the term <strong>distributional semantic model</strong>, 
+							<em>linguistic items with similar distributions have similar meanings.</em> </p>
+					</section>
+					<section>
+						<h3>Evolution:</h3>
+						<ul>
+							<li>In 2003 <strong>Bengio et al.</strong> proposed a Neural language Model which learned distributed representations for words</li>
+							<li class="fragment fade-up"><strong>Collobert and Westorn</strong>(2008) was the firts work to show the utility of pre-trained word embeddings</li>
+							<li class="fragment fade-up">In 2013 <strong>Mikolov et al.</strong> proposed <em>Word2Vec</em>, with two approach, 
+								<em>continous bag-of-word</em> and <em>skip-gram</em>, to construct high quality distributed vector representations</li>
+						</ul>
+					</section>
+					<section>
+						<h1>what is Word2Vec? </h1>
+					</section>
+					<section>
+						<strong><em>Word2Vec</em></strong> is a shallow neural networks with one hidden layer, to produce word embedding
+						<img src="images/W2V-Architecture.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>	
+
+						<small>				
+							<ol>
+								<li>Input is a <strong>One hot</strong> vector of all words from text</li>
+								<li>One hide layer, with <strong>size</strong> of the word vector </li>
+								<li>A output layer, using a <strong>SoftMax</strong> classifier</li>
+							</ol>
+						</small>
+	
+					</section>
+					<section>
+						<p>Word2vec is two approach– CBOW(Continuous bag of words) and Skip-gram model.</p>
+						<p><small>Learn weights which act as word vector representations, with a <strong>size window</strong>, about the word context</small></p>
+						<img src="images/CBOW-SkipGram.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img>
+						<p style="font-size: 20px">The training method of word2vec is backpropagation with stochastic gradient descent.</p>
+						<img src="images/CBOW-ObjectiveFunc.png" style="float: left; border: 0; padding: 0px; width: 40%; height: 40%"> </img>
+						<img src="images/SkipGram-ObjectiveFunc.png" style="float: right;border: 0; padding: 0px; width: 40%; height: 40%"> </img>
+					</section>
+					<section>
+						<p><strong>Word2Vecs'trick:</strong></p>
+
+						<p>There is no activation function on the hidden layer neurons, and the output neurons use softmax clasification 
+							method to build a probability distribution.</p>
+						
+						<p>Really, the goal is just to learn the weights of the hidden layer. 
+								It'll be the “word vectors”.</p>
+						<blockquote>The hidden layer, represent the vector of the word in the space model</blockquote>
+					</section>
+				</section>
+				
+				<section>
+					<section data-transition="zoom" data-background="images/cbms_fondo03.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">3. Snomed-CT:</h2>
+					</section>
+					<section>
+						<h2>Snomed-CT</h2>
+						<p><small>Systematized Nomenclature of Medicine Clinical Terms</small></p>
+						<p><strong>Component</strong>, is organized in concepts, descriptions and relationships: </p>
+						<ul>
+								<li class="fragment fade-up"><strong>Concepts</strong>, is the way to represent a clinical concept.</li>
+								<li class="fragment fade-up"><strong>Descriptions</strong>, represeting the human readable term of a concept</li>
+								<li class="fragment fade-up"><strong>Relationships</strong>, represent an association between concepts.</li>
+						</ul>
+						<small><p>The meaning of the concept has a hierarchy structure, from general to more detail.</p></small>
+					</section>
+					<section>
+							<h3>Logic Model (1/2)</h3>
+							<img src="images/Snomed-logicalModel.png" style="border: 0; padding: 0px;"> </img>
+							<p style="font-size: 15px">Figure01: <a href="https://confluence.ihtsdotools.org/display/DOCSTART/5.+SNOMED+CT+Logical+Model"">ihtsdo web</a></p>
+					</section>
+					<section>
+						<h3>Logic Model (2/2)</h3>
+						<img src="images/Snomed-Structure.png" style="border: 0; padding: 0px;"> </img>
+						<p style="font-size: 15px">Figure02: <a href="https://confluence.ihtsdotools.org/display/DOCSTART/5.+SNOMED+CT+Logical+Model"">ihtsdo web</a></p>
+					</section>					
+				</section>
+
+				<section>
+					<section data-transition="zoom" data-background="images/cbms_fondo04.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">4. Snomed2Vec Approach:</h2>
+					</section>	
+					<section>
+						<h3>1. DataSets Creations:</h3>
+							<img src="images/Snomed2Vec-DataSets.png" style="border: 0; padding: 0px; width: 40%; height: 40%"> </img>
+					</section>
+					<section>
+						<h3>2. Pre-processing Text:</h3>
+						<small>
+						<ol>
+								Initial DataSets for training:<br><br>
+							<li><strong>DataSet_Model01</strong>: local domain.(Discharge Emergency Reports + Snomed-cT Descriptions)</li>
+							<ul>
+								<li>516.211 discharge emergency reports from (2009-2018)</li>
+								<li>636.439 Snomed-CT descriptions Terms</li> 
+								<li>Final size of DataSetModel01 to train, 1.152.650</li>
+							</ul>
+							<li><strong>DataSet_Model02</strong>, (Spanish Wikipedia Dump + Snomed-cT Descriptions), General domain</li>
+							<ul>
+								<li><a href="https://github.com/attardi/wikiextractor">Link to: WikiExtractor framework</a> from Guiseppe Attardi</li>
+							</ul>
+
+							<li><strong>Normalized Text:</strong></li>
+								<ul>
+									<li>Tokenizer the text</li>
+									<li>Lowing words, removing some punctuation sign.</li>
+									<li>Eliminating Spanish accent</li>
+									<li>Remove some <strong>StopWord</strong>, but not the negative words</li>
+								</ul>
+						</ol>
+						</small>
+					</section>
+					<section>
+						<h3>3. Apply Word2Vec Gensim (Skipgram) framework</h3>
+						<ul>
+							<strong>Parameters:</strong>
+							<li>Size=300, size of the vector</li>
+							<li>Window=8, Context size</li>
+							<li>min_count=1, less frecuency word</li>
+							<li>sh=1, SkipGram framework</li>
+							<li>hs= SoftMax, classifier</li>
+						</ul>
+						<p>After trainning process, we get 2 model.</p>
+					</section>
+					<section>
+						<h3>4. Final Words Space Vector Models</h3>
+						<ol>
+							<li><strong>Model_01</strong>, local domain trainning model, (Emergency Reports + Snomed Descriptions)</li>
+							<li><strong>Model_02</strong>, General domain trainning model, (Spanish Wikipedia + Snomed Descriptions)</li>
+						</ol>
+						<p>With theses models we get the vector of every word</p>
+					</section>
+				</section>
+
+				<section>
+					<section data-transition="zoom" data-background="images/cbms_fondo05.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">5. Final Snomed2Vec Model And Similarity Methods:</h2>
+					</section>	
+					<section>
+						<h2>1. Final Snomed2Vec Model.</h2>
+						<p>To get the final Snomed2Vec model approach, we use the previous Models (01, 02), to create a 2 news space Model, 
+							with the descripcions tems of Snomed-CT.</p>
+						<p>From the Snomed-CT DataSet, with the structure:</p>
+						<img src="images/Snomed2Vec-DataSet00.png" style="border: 0; padding: 0px; width: 40%; height: 40%"> </img>
+						<small>
+							<p>(*)Link to: get the Top level hierarchy of a concept, we need to use: <a href="https://confluence.ihtsdotools.org/display/DOCTSG/7.5.2+Transitive+closure+implementation">Snomed-CT Transitive closure implementation</a></p>
+						</small>
+					</section>
+					<section>
+						<h2>2. Getting final description Vector</h2>
+						<p>Use the previous Word Space Models, to get the final description terms vector.</p>
+						<ol>
+							<li>Description Terms => <em><strong>(d)</strong></em> = (w<sub>1</sub> + w<sub>2</sub> + ... + w<sub>n</sub>)</li>
+							<li><em><strong>v(d)=</strong></em> &sum;<sub>(i=1)</sub> v[w<sub>i</sub>] &equiv; v[w<sub>1</sub>]+v[w<sub>2</sub>]+...+v[w<sub>n</sub>]
+							</li>
+						</ol>
+					</section>
+					<section>
+						<h2>3. Final Space Model - Snomed2Vec</h2>
+						<p>New Vector Space Model, <strong>Snomed2Vec</strong></p>
+						<img src="images/SnomedWork.png" style="border: 0; padding: 0px; width: 90%; height: 90%"> </img>
+						<small>
+							<p>Size of the Space Vector Model: (516211, 4)</p>
+							<p>[ID_Concept] [corpusTerm] [Hierarchy] [Vector(Description)]</p>
+						</small>
+					</section>
+					<section>
+						<h2>3.1 Design Process - Snomed2Vec</h2>
+						<img src="images/Snomed2Vec-Process01.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>
+						<hr>
+						<img src="images/Snomed2Vec-Process02.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>
+					</section>
+					<section>
+						<h2>4. Similarity Distance - New Approach</h2>
+						<p>We use the Cosine distance, to identify the similarity between concepts</p>
+						<img src="images/cosine-similarity.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img>
+						<p>Our approach is:</p>
+						<small>
+						<ul>
+							<li>we use <strong>Gensim distance</strong> of the Similarity method implementation, but not, over the the Space model of the trainner model (01, 02).</li>
+							<li>We apply over the <strong>Final Snomed2Vec</strong> space Model.</li>
+						</ul>
+						</small>
+					</section>
+					<section>
+						<h2>4.1 Space Vector Model Snomed2Vec</h2>
+						<small>
+						<table>
+								<thead><tr>
+									<th>Number</th>	
+									<th>Id-Concept</th>
+									<th>Vector(description Term)</th>
+								</tr></thead>
+								<tbody>
+									<tr>
+										<td>0.</td>
+										<td>102002</td>
+										<td>[0.503108, 0.466876, -0.0276602, -0.234006, -0.116602, 0.484161, 0.125, -0.351791, 0.168337, -0...</td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>103007</td>
+										<td>[[1.08219, -0.860717, 0.460997, 0.467138, -0.109274, 0.35905, 0.0495269, -1.52099, 0.485955, -0....</td>
+									</tr>
+									<tr>
+										<td>...</td><td>...</td><td>...</td>							
+									</tr>
+									<tr>
+										<td>...</td><td>...</td><td>...</td>							
+									</tr>
+									<tr>
+										<td>516211</td>
+										<td>...</td>
+										<td>[[1.09046, 1.19666, 0.137113, 1.16608, -1.54469, 1.88294, 0.745489, -1.53078, 0.679535,...</td>							
+									</tr>
+		
+								</tbody>
+							</table>
+						</small>
+					</section>
+					<section>
+						<h2>Implementation tricks 1/2</h2>
+						<small>
+						<p><a href="https://github.com/RaRe-Technologies/gensim/blob/develop/gensim/models/word2vec.py">Link to: Gensim implementation</a>, to our solution</p>
+						<p>Creation of the Initial Matrix to get the Snomed2Vec Vector Space Model</p>
+						</small>
+						<pre><code class="python" data-trim contenteditable style="font-size: 15px;">
+# Input data = DataSet-Matrix
+def init_vars(data):
+    vector_size = len(data['vecSnom'][0])
+    vocab_size = len(data['vecSnom'])
+    logging.info("precomputing L2-norms of word weight vectors")
+    index2word = data['concept'].tolist() # map from a word's matrix index (int) to word (string)
+    syn0 = np.array(data['vecSnom'].tolist(), dtype=REAL)
+    syn0[np.isnan(syn0)] = 0.0
+    syn0norm = zeros((vocab_size, vector_size), dtype=REAL)
+    np.seterr(divide='ignore', invalid='ignore')
+    syn0norm = (syn0 / sqrt((syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+    return syn0, index2word, syn0norm
+						</code></pre>
+					</section>					
+					<section>
+						<h2>Implementation tricks 2/2</h2>
+						<pre><code class="python" data-trim contenteditable style="font-size: 15px;">
+	def mas_similar(positive=[], model=w2vModel, topn=15):
+    	vector=vectorSnomed(positive,model,300)
+    	vectorNorm = (vector / sqrt((vector ** 2).sum(-1))[..., newaxis]).astype(REAL)
+    	mean = []
+    	mean.append(vectorNorm)
+    	mean = matutils.unitvec(array(mean).mean(axis=0)).astype(REAL)
+    	limited = syn0norm
+    	dists = dot(limited, mean)
+    	dists[np.isnan(dists)] = 0.0
+    	best = matutils.argsort(dists, topn=topn, reverse=True)
+    	result = [(index2word[sim], float(dists[sim])) for sim in best]
+    	return result[:topn]
+						</code></pre>
+					</section>
+					<section>
+						<h2>5. New Methods Snomed2Vec</h2>
+						<p>We create next methods to use with Snomed2Vec:</p>
+						<small>
+						<ol>
+							<li><strong>vectorSnomed</strong>(queryText, model, size):</li>
+							<ul><li> Out: q(Query txt), v(q)= &sum;<sub>(i=1)</sub> v[w<sub>i</sub>], get a vector from the query</li></ul>
+							<li><strong>Mas_Similar</strong>(txt, model, topn):</li>
+							<ul><li> Out: List of <strong>n items</strong> more closed in the Space model from vector(txt) </li></ul>
+							<li><strong>Similares</strong>(term, jer='all', nMax=3):</li>
+							<ul><li> Out: List of <strong>nMax</strong> more similar concepts from Snomed-CT, grouping by <strong>hierarchy </strong></li></ul>
+						</ul>
+						</small>
+					</section>					
+				</section>
+					
+				</section>
+				
+				
+				<section>
+					<section data-transition="zoom" data-background="images/cbms_fondo06.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">6. Use Cases:</h2>
+					</section>	
+				
+					<section>
+						<h2>Use case:</h2>
+						<p><small><a href="http://snomed2vec.jasonjimnzdev.es/" target="_blank">Link to: On line Snomed2Vec protoype tool</a></small></p>
+						<img src="images/EjemploSnomed2Vec01.png" style="border: 0; padding: 0px; width: 70%; height: 70%"> </img>
+						<img src="images/EjemploSnomed2Vec03.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>
+					</section>
+					<section data-background-iframe="http://snomed2vec.jasonjimnzdev.es/" data-background-interactive>
+						<div style="position: absolute; width: 20%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+							<h2>Snomed2Vec Tools Page</h2>
+							<p>Prototype Snomed2Vec Web</p>
+						</div>
+					</section>
+				</section>				
+				<section>
+
+					<section data-transition="zoom" data-background="images/cbms_fondo07.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">7. Evaluation and tips:</h2>
+					</section>
+
+					<section>
+						<h2>Evaluations:</h2>
+						<small>
+						<p>We proposed, two kind of evaluations:<p>
+						<ol>
+							<li>Using a Corpus Gold Data, prepared for this experiment, with two Documentalist experts </li>
+							<p>The performance of the tool: 
+								Precision: P = TP/(TP+FP),
+								Recall: R =TP/(TP+FN), where TP = true positive, TN=true negative, FN =False negative and FP= false positive.</p>
+							<img src="images/F1_meassure.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>
+							<img src="images/TableResults.png" style="border: 0; padding: 0px; width: 30%; height: 30%"> </img>
+							<p>Use this survey:</p>
+							<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSerCEqABYqYXs69O1a8_JVuRd5B_dKmfpGRDw8BRWREm0P7lw/viewform">Link to: A social approach, to evaluate the paper, with a public survey.</a> </li>
+						</ol>
+					</small>
+					</section>
+					<section>
+						<h2>Contributions:</h2>
+						<p>We publish a Github repository, for this project, to share the Notebooks:<p>
+						<p>Snomed2Vec Github: <a href="https://github.com/NachusS/Snomed2Vec">Link to: Snomed2Vec (https://github.com/NachusS/Snomed2Vec)</a></p>
+						<p>You can reproduce and improve this development, with this code.</p>
+
+					</section>					
+
+				</section>					
+				<section>				
+					<section data-transition="zoom" data-background="images/cbms_fondo08.jpg">
+						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">8. Conclusion and Outlook:</h2>
+					</section>
+					<section>
+					<h2>Conclusions:</h2>
+					<ol>
+						<li>This is a tool, to help the human expert, choose the best SNOMED-CT Code.</li>
+						<li>With a closed domain training model, the system can solve abbrevitions</li>
+						<li>You can integrate with a N.E.R. system, and help to get the correct code. </li>
+						<li>we offer publish notebooks to reproduce the project. And Test it. </li>
+					</ol>
+					</section>				
+				</section>
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+					<p>
+						Autores: <br>
+						<img src="images/QR-EncuestaCBMS2019.png" style="float: right; border: 0; padding: 0px; width: 30%; height: 30%"></img>
+						- <a href="https://nachuss.github.io/" target="_blank">Ignacio Martínez Soriano</a> <br>
+						- <a href="http://decsai.ugr.es/index.php?p=profesores&id=7932" target="_blank">Juan Luis Castro Peña</a> <br>
+						- <a href="https://webs.um.es/jfernand/miwiki/doku.php" target="_blank">Jesualdo Tomas Fenandez Breis</a> <br>
+						- <a href="https://www.linkedin.com/in/ignaciosrl/?originalSubdomain=es" target="_blank">Ignacio San Roman Lana</a> <br>
+						- <a href="https://medlabmediagroup.com/es/inicio/" target="_blank">Adrian Alonso</a> <br>
+						- <a href="https://www.murciasalud.es/caps.php?op=mostrar_centro&id_centro=14&tipo_centro=hospital&idsec=6" target="_blank">David Guevara Baraza</a>
+					</p>
+					<hr>
+					<p>
+					<a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdGoKAMT_jykJTzb2SnHiSXK-rTqSzm2HLG4Q0DdIzR0xbrhQ/viewform">Link to: Please fill Satisfaction Survey</a>
+					
+				</p>
+				</section>
+
+				
+
+			</div>
+
+		</div>
+
+	<div style="position: absolute; bottom: 10px; left: 100%;  margin-left: -150px">
+				<img src="images/logo-02-cbms2019_100x22.png">
+	</div>			
+		<script src="js/reveal.js"></script>
+		<script src="lib/highlight.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				controlsLayout: 'edges',
+				progress: true,
+				slideNumber: true,
+				center: true,
+				hash: true,
+				rollingLinks: true,
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
