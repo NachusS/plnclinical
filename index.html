@@ -399,7 +399,7 @@ depende de las palabras que las rodea.</code></pre>
 						<h3>Comunidad HuggingFace:</h3>
 						<p style="font-size: 15px">Fuente(iia.uam.es): <a href="https://huggingface.co/">Huggingface</a></p>
 						<p><img src="images/Hugginface01.png" style="border: 0; padding: 0px; width: 25%; height: 25%"> </img> </p>
-						<p><img src="images/Hugginface02.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img> </p>						
+						<p><img src="images/Hugginface02.png" style="border: 0; padding: 0px; width: 75%; height: 75%"> </img> </p>						
 					</section>
 
 				</section>
@@ -411,51 +411,40 @@ depende de las palabras que las rodea.</code></pre>
 					<section>
 						<h2>Análisis HCE:</h2>
 						<p><img src="images/CasoUso-HCE.png" style="border: 0; padding: 0px; width: 100%; height: 100%"> </img> </p>
-
 					</section>
 					
 					<section>
-						<h3>Mapping Clinical Concept:</h3>
-						<small><p>To identify the diagnosis and procedure, from the free text, we need a Clinical Terminology (ICD-10-MC,Snomed-CT..)</p></small>
+						<h3>Mapeo Conceptos Clínicos:</h3>
+						<small><p>Permite identificar el diagnóstico y procedimientos, desde el texto libre.
+							asociando el concepto a un código de una terminología clínica.( ICD-10-MC,Snomed-CT..)</p></small>
 						<img src="images/codification.png" style="border: 0; padding: 0px; width: 70%; height: 70%"> </img>
-						<p>This process is heavy and need an expert.</p>
+						<p>Normalemente este proceso es el que realiza un humano experto.</p>
 
 					</section>
 					<section>
-						<h2>Spanish NER Tool approach:</h2>
-						<p>We propossed a tool to help the clinicians, to search in Snomed-CT and find the correct Medical concept Code.</p>
-						<p><strong><em>Snomed2Vec</em></strong>, is an ontology based named entity recognition tool using word embedding, that
-							suggest what is the most similar concept of Snomed-CT, that appear in a text.</p>
-						<p><strong>Snomed2Vec</strong>, from a query text, It suggest what is
-								the most similar concepts from Snomed-CT grouping by its top level hierarchy.</p>
-					</section>
-					<section>
-						<h3>Background and Related Work:</h3>
-						<p>Different approach of Ontology-Based Names Entity recognition.</p>
-						<ul>
-							<li>Ontology Matching.</li>
-							<small><p>Try to solve a problem of semantic heterogeneity</p></small>
-							<li>Named Based Techniques.</li>
-							<small><p>Try to identify the most similar string in a text search</p></small>
-							<li>Word Embedding Ontology Matching.</li>
-							<small><p>Represent entities in ontologies with word embedding</p></small>
-						</ul>
-						<p></p>
+						<h2>Enfoque de una herramienta NER:</h2>
+						<p>Se propuso una herramienta para ayudar a los médicos a buscar en Snomed-CT y encontrar el código del concepto médico.</p>
+						<p><strong><em>Snomed2Vec</em></strong>, es una herramienta de reconocimiento de entidades nombradas basada en ontologías que 
+							utiliza "word embeddings", para sugerir cuál es el concepto más parecido de Snomed-CT, del que aparece en un texto.</p>
+						<p><strong>Snomed2Vec</strong>, buscador semántico. Sugiere cual es el concepto mas similar, agrupado por sus jerarquías, de Snomed-CT.</p>
 					</section>
 
 				</section>
-				
-				
+								
 				<section>
 					<section data-transition="zoom" data-background="images/cbms_fondo06.jpg">
 						<h2 style="display:block;background:rgba(235,235,235,0.7);color:#404040;padding:13px 10px 10px 10px;border-radius:3px;">6. Librearias y Frameworks:</h2>
 					</section>	
-				
 					<section>
-						<h2>Use case:</h2>
+						<h2>Librerias adaptadas a Español:</h2>
+						<ul>
+							<li> </li>
+							<li> </li>
+							<li> </li>
+						</ul>
 						<p><small><a href="http://snomed2vec.jasonjimnzdev.es/" target="_blank">Link to: On line Snomed2Vec protoype tool</a></small></p>
 						<img src="images/EjemploSnomed2Vec01.png" style="border: 0; padding: 0px; width: 70%; height: 70%"> </img>
-						<img src="images/EjemploSnomed2Vec03.png" style="border: 0; padding: 0px; width: 60%; height: 60%"> </img>
+
 					</section>
 
 				</section>				
@@ -481,10 +470,10 @@ depende de las palabras que las rodea.</code></pre>
 					</section>
 
 					<section>
-						<h2>Plan de Tecnologías del Lenguaje:</h2>
+						<h3>Plan de Tecnologías del Lenguaje:</h3>
 						
 						<p>Proyectos y Tareas <strong>(sharedTask)</strong>, para la mejora lenguaje Médico:</p>
-						<img src="images/TemuCampanas.png" style="border: 0; padding: 0px; width: 70%; height: 70%"> </img
+						<img src="images/TemuCampanas.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img
 						<small>
 						<ul>
 							<li>MEDDOCAN:<a href="https://temu.bsc.es/meddocan/" target="_blank">Medical Document Anonymization Track</a></li> </li>
@@ -492,9 +481,6 @@ depende de las palabras que las rodea.</code></pre>
 							<li><a href="https://github.com/PlanTL-SANIDAD/lm-spanish" target="_blank">Repositorio Github, Modelos y Utilidades</a></li>
 						</ul>
 						</small>
-					</section>
-					<section>
-						<h2>Plan de Tecnologías del Lenguaje:</h2>
 					</section>
 
 				</section>					
