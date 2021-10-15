@@ -344,11 +344,22 @@ depende de las palabras que las rodea.</code></pre>
 					</section>	
 					<section>
 						<h2>Transformers:</h2>
-						<p> </p>
-							<img src="images/Transformes-EncDec.png" style="border: 0; padding: 0px; width: 45%; height: 45%"> </img>
+						<small>
+						<p>En un paper de Google de finales del año 2017 -“Attention is All You Need”- se presentó la arquitectura del Transformer, 
+							un modelo que tenía como principal innovación la sustitución de las capas recurrentes, como las LSTMs que se venían usando 
+							hasta ese momento en PLN, por las denominadas capas de atención.</p>
+
+						<p>Estas capas de atención codifican cada palabra de una frase en función del resto de la secuencia, 
+							permitiendo así introducir el contexto en la representación matemática del texto, motivo por el cual a los 
+							modelos basados en Transformer se les denomina también Embeddings Contextuales. </p>
+						</small>	
 					</section>
 					<section>
-						<h2>Diseño:</h2>
+						<h2>Diseño(1/2):</h2>
+						<img src="images/Transformes-EncDec.png" style="border: 0; padding: 0px; width: 45%; height: 45%"> </img>
+					</section>
+					<section>
+						<h2>Diseño(2/2):</h2>
 						<img src="images/Transformes-QKV.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img>
 						<img src="images/Transformes-MultiHead.png" style="border: 0; padding: 0px; width: 50%; height: 50%"> </img>
 					</section>
